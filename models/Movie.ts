@@ -1,5 +1,5 @@
 import { model, Schema, Model } from 'mongoose'
-import { M } from '../interfaces/Model'
+import { MovieInterface } from '../interfaces/Model'
 
 const MovieSchema: Schema = new Schema({
   title: {
@@ -25,6 +25,6 @@ const MovieSchema: Schema = new Schema({
   },
 })
 
-const Movie: Model<M> = model('Movie', MovieSchema)
+const Movie: Model<MovieInterface> = model('Movie', MovieSchema)
 
 export default Movie
