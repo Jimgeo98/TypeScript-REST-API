@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
 
-const connectDB = async () => {
+export const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
+    const conn = await mongoose.connect(process.env.MONGO_URI as string, {
       useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -15,5 +15,3 @@ const connectDB = async () => {
     process.exit(1)
   }
 }
-
-export = connectDB

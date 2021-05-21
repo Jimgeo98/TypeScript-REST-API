@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import Movie from '../models/Movie'
-import { M } from '../interfaces/Model'
-import { ObjectId } from 'mongoose'
+import { MovieInterface } from '../interfaces/Model'
 import { Request, Response } from 'express'
 
 //Home
@@ -32,7 +31,7 @@ export const getAllMovies = async (req: Request, res: Response) => {
 
 // Get Movie by id
 export const getGameById = async (req: Request, res: Response) => {
-  const _id: string = req.params.id
+  const _id = mongoose.Types.ObjectId(req.params.id)
 
   try {
     const movies = await Movie.find({ _id })
@@ -58,7 +57,7 @@ export const CreateMovie = async (req: Request, res: Response) => {
   const director: string = req.body.director
   const rate: number = req.body.rate
 
-  const movie: M = new Movie({ _id, title, kind, release_date, director, rate })
+  const movie: MovieInterface = new Movie({ _id, title, kind, release_date, director, rate })
 
   try {
     await movie.save()
@@ -110,7 +109,7 @@ export const updateMovieById = async (req: Request, res: Response) => {
 
 // Delete Movie
 export const deleteGame = async (req: Request, res: Response) => {
-  const _id: ObjectId = req.params.id
+  const _id = mongoose.Types.ObjectId(req.params.id)
   try {
     const deletedMovie = await Movie.findByIdAndDelete({ _id })
     if (deletedMovie) {

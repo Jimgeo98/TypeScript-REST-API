@@ -4,6 +4,7 @@
   "description": "Node.js REST API with Typescript and MongoDB",
   "main": "server.js",
   "scripts": {
+    "start": "ts-node -r tsconfig-paths/register server.ts",
     "dev": "ts-node-dev --respawn --pretty --transpile-only server.ts"
   },
   "author": "Dimitris Georgiadis",
