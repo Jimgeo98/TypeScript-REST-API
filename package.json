@@ -5,8 +5,11 @@
   "main": "server.js",
   "scripts": {
     "start": "ts-node -r tsconfig-paths/register server.ts",
-    "dev": "ts-node-dev --respawn --pretty --transpile-only server.ts"
+    "dev": "ts-node-dev --respawn --pretty --transpile-only server.ts",
+    "postinstall": "tsc && mv -i -v public dist/ && rm -v -rf src",
+    "watch-ts": "tsc -w"
   },
+  "engines": { "node": "14.16.0" },
   "author": "Dimitris Georgiadis",
   "license": "ISC",
   "dependencies": {
