@@ -11,7 +11,6 @@ import { errorHandler } from './middleware/error'
 import { notFoundHandler } from './middleware/notFound'
 dotenv.config()
 
-const port: number = parseInt(process.env.PORT as string, 10)
 const app: Application = express()
 
 // Middleware
@@ -34,7 +33,7 @@ if (!process.env.PORT) {
 connectDB()
 
 // Server Listening
-app.listen(port, () => {
-  console.log(`server started at port ${port}`)
-  console.log(`app running here -> http://localhost:${port}`)
+app.listen(process.env.PORT || 5000, () => {
+  console.log(`server start running at port ${process.env.PORT}!`)
+  console.log(`Server is Live here -> http://localhost:${process.env.PORT}`)
 })

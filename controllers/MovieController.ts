@@ -1,13 +1,14 @@
 import mongoose from 'mongoose'
 import Movie from '../models/Movie'
-import { MovieInterface } from '../interfaces/Model'
+import { MovieInterface } from '../interfaces/MovieInterface'
 import { Request, Response } from 'express'
+import { MovieValidInfo } from '../validation/validation'
 
 //Home
 export const home = (req: Request, res: Response) => {
   res.status(200).json({
     message: 'API running...',
-    URL: 'Go to /api/movies',
+    URL: 'Go to /movies to see the List',
     status: res.statusCode,
   })
 }
@@ -31,8 +32,7 @@ export const getAllMovies = async (req: Request, res: Response) => {
 
 // Get Movie by id
 export const getGameById = async (req: Request, res: Response) => {
-  const _id = mongoose.Types.ObjectId(req.params.id)
-
+  const _id: string = req.params.id
   try {
     const movies = await Movie.find({ _id })
     res.status(200).json({
@@ -56,6 +56,10 @@ export const CreateMovie = async (req: Request, res: Response) => {
   const release_date: number = req.body.release_date
   const director: string = req.body.director
   const rate: number = req.body.rate
+
+  // Validation Movie Input
+  const { error } = MovieValidInfo.validate(req.body)
+  if (error) return res.status(400).json({ error: error.details[0].message })
 
   const movie: MovieInterface = new Movie({ _id, title, kind, release_date, director, rate })
 
@@ -84,6 +88,10 @@ export const updateMovieById = async (req: Request, res: Response) => {
   const rate: number = req.body.rate
   const _id: string = req.params.id
 
+  // Validation Movie Input
+  const { error } = MovieValidInfo.validate(req.body)
+  if (error) return res.status(400).json({ error: error.details[0].message })
+
   try {
     const updatedMovie = await Movie.findByIdAndUpdate(
       { _id },
@@ -109,7 +117,7 @@ export const updateMovieById = async (req: Request, res: Response) => {
 
 // Delete Movie
 export const deleteGame = async (req: Request, res: Response) => {
-  const _id = mongoose.Types.ObjectId(req.params.id)
+  const _id = req.params.id
   try {
     const deletedMovie = await Movie.findByIdAndDelete({ _id })
     if (deletedMovie) {

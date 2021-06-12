@@ -8,21 +8,35 @@ import {
   updateMovieById,
   deleteGame,
 } from '../controllers/MovieController'
+import { createUser } from '../controllers/SignUpController'
+import { userLogin } from '../controllers/LogInController'
+import { authenticateToken } from '../middleware/auth'
+
+
+//-------Movies Routes---------------
 
 // Home route
 router.get('/', home)
 
 // Get All Movies Route
-router.get('/api/movies', getAllMovies)
+router.get('/movies', getAllMovies)
 
 // Get Specific Movie by id
-router.get('/api/movies/:id', getGameById)
+router.get('/movies/:id', getGameById)
 
 // Create Movie
-router.post('/api/movies', CreateMovie)
+router.post('/movies', authenticateToken, CreateMovie)
 
 // Edit Specific Movie by id
-router.patch('/api/movies/:id', updateMovieById)
+router.patch('/movies/:id', authenticateToken, updateMovieById)
 
 // Delete Specific Movie by id
-router.delete('/api/movies/:id', deleteGame)
+router.delete('/movies/:id', authenticateToken, deleteGame)
+
+
+
+//-------User Routes---------------
+
+router.post('/movies/signup', createUser)
+
+router.post('/movies/login', userLogin)

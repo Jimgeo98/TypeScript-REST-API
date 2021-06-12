@@ -1,4 +1,5 @@
 import mongoose, { Document } from 'mongoose'
+
 export interface MovieInterface extends Document {
   
   _id: mongoose.Types.ObjectId

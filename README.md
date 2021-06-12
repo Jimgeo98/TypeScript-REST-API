@@ -1,8 +1,8 @@
-## TypeScript REST API with MongoDB and Express.js
+## REST API with Node / TypeScript, JWT, MongoDB, Express.js
 
-### Setup
+### Project Setup
 ```
 cp.env.example .env
-npm install
-npm run dev
+yarn or npm install
+yarn dev or npm run dev
 ```

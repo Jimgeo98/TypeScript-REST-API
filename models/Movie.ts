@@ -1,5 +1,5 @@
 import { model, Schema, Model } from 'mongoose'
-import { MovieInterface } from '../interfaces/Model'
+import { MovieInterface } from '../interfaces/MovieInterface'
 
 const MovieSchema: Schema = new Schema({
   title: {
