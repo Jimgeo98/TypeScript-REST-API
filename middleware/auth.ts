@@ -8,6 +8,8 @@ export const authenticateToken = (
   next: NextFunction,
 ) => {
   const authHeader = req.headers['authorization']
+  // let token : string = ''
+  // if (authHeader) token  = authHeader.slice(7)
   const token = authHeader && authHeader.split(' ')[1]
 
   if (!token) return res.status(401).json({ message: 'Access denied. Not authorized...' })
@@ -16,14 +18,14 @@ export const authenticateToken = (
     const jwtSecretKey: string = process.env.JWT_TOKEN || ''
     const decoded = jwt.verify(token, jwtSecretKey)
     req.user = decoded // IGetUserAuthInfoRequest Interface
+    return next()
 
-    next()
   } catch (error) {
-    if (error.message === 'jwt expired') {
-      res.status(400).json({ message: 'jwt token has expired.' })
-    } else {
-      res.status(400).json({ message: 'Invalid auth token...' })
-    }
     console.log(error)
+    if (error.message === 'jwt expired') {
+      return res.status(400).json({ message: 'jwt token has expired.' })
+    } else {
+      return res.status(400).json({ message: 'Invalid auth token...' })
+    }
   }
 }

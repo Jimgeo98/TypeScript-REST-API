@@ -1,7 +1,7 @@
-import { model, Schema, Model } from 'mongoose'
+import { model, Schema } from 'mongoose'
 import { UserInterface } from '../interfaces/UserInterface'
 
-const userSchema: Schema = new Schema({
+const userSchema = new Schema<UserInterface>({
   name: {
     type: String,
     required: true,
@@ -17,6 +17,6 @@ const userSchema: Schema = new Schema({
   },
 })
 
-const User: Model<UserInterface> = model('User', userSchema)
+const User = model<UserInterface>('User', userSchema)
 
 export default User

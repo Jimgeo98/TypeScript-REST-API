@@ -6,7 +6,7 @@ import { MovieValidInfo } from '../validation/validation'
 
 //Home
 export const home = (req: Request, res: Response) => {
-  res.status(200).json({
+  return res.status(200).json({
     message: 'API running...',
     URL: 'Go to /movies to see the List',
     status: res.statusCode,
@@ -17,12 +17,12 @@ export const home = (req: Request, res: Response) => {
 export const getAllMovies = async (req: Request, res: Response) => {
   try {
     const movies = await Movie.find()
-    res.status(200).json({
+    return res.status(200).json({
       message: res.statusCode,
       data: movies,
     })
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       status: res.statusCode,
       error: error,
       message: error.message,
@@ -35,12 +35,12 @@ export const getGameById = async (req: Request, res: Response) => {
   const _id: string = req.params.id
   try {
     const movies = await Movie.find({ _id })
-    res.status(200).json({
+    return res.status(200).json({
       message: res.statusCode,
       data: movies,
     })
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       status: res.statusCode,
       error: error,
       message: error.message,
@@ -65,13 +65,13 @@ export const CreateMovie = async (req: Request, res: Response) => {
 
   try {
     await movie.save()
-    res.status(200).json({
+    return res.status(200).json({
       message: `Movie with title ${req.body.title} Created successfully !`,
       data: movie,
       status: res.statusCode,
     })
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       status: res.statusCode,
       error: error,
       message: error.message,
@@ -100,14 +100,14 @@ export const updateMovieById = async (req: Request, res: Response) => {
     )
 
     if (updatedMovie) {
-      res.status(200).json({
+      return res.status(200).json({
         message: `Movie with title: '${req.body.title}' Successfully updated`,
         data: updatedMovie,
         status: res.statusCode,
       })
     }
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       status: res.statusCode,
       error: error,
       message: error.message,
@@ -121,13 +121,13 @@ export const deleteGame = async (req: Request, res: Response) => {
   try {
     const deletedMovie = await Movie.findByIdAndDelete({ _id })
     if (deletedMovie) {
-      res.status(200).json({
+      return res.status(200).json({
         message: `Movie Deleted successfully`,
         status: res.statusCode,
       })
     }
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       status: res.statusCode,
       error: error,
       message: error.message,

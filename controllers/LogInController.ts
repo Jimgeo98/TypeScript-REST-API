@@ -20,12 +20,12 @@ export const userLogin = async (req: Request, res: Response) => {
       { algorithm: 'HS256', expiresIn: '1800s' },
     )
 
-    res.status(200).json({
+    return res.status(200).json({
       message: `Welcome Back ${req.body.email} !`,
       Token: token,
     })
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       status: res.statusCode,
       error: error,
       message: error.message,
